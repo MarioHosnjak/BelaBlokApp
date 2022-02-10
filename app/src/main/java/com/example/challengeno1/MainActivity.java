@@ -22,17 +22,16 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String SAVED_RECYCLER_VIEW_DATASET_ID = "Dataset_ID";
     private static final String SAVED_RECYCLER_VIEW_STATUS_ID = "Status_ID";
-    public ArrayList<GameResult> results = new ArrayList<>();;
+    public static ArrayList<GameResult> results = new ArrayList<>();;
     private RecyclerView recyclerView;
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle savedState) {
+        super.onSaveInstanceState(savedState);
         Parcelable listState = recyclerView.getLayoutManager().onSaveInstanceState();
         savedState.putParcelable(SAVED_RECYCLER_VIEW_STATUS_ID, listState);
         savedState.putParcelableArrayList(SAVED_RECYCLER_VIEW_DATASET_ID, results);
-        savedState.putInt("miVelju", 25);
-        savedState.putInt("viVelju", 152);
-        super.onSaveInstanceState(savedState);
+        System.out.println("onSejvInstencStejt");
     }
 
     @Override
@@ -46,17 +45,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(savedInstanceState == null){
-            System.out.println("JE null");
-            //results = savedInstanceState.getParcelableArrayList(SAVED_RECYCLER_VIEW_DATASET_ID);
-        } else {
-            System.out.println("Nije null");
-            results.add(new GameResult(savedInstanceState.getInt("miVelju"), savedInstanceState.getInt("viVelju")));
-        }
+        recyclerView = (RecyclerView) findViewById(R.id.recView);
 
-        recyclerView = findViewById(R.id.recView);
-
-        setResults();
+        //setResults();
         setAdapter();
 
         Intent resultIntent = getIntent();
@@ -64,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
         int viResultNew = resultIntent.getIntExtra("viResult", 0);
         System.out.println(miResultNew);
         System.out.println(viResultNew);
+
+        System.out.println(results);
+        if(!(miResultNew == 0 && viResultNew == 0))
         results.add(new GameResult(miResultNew, viResultNew));
 
         System.out.println(results);
