@@ -20,25 +20,9 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String SAVED_RECYCLER_VIEW_DATASET_ID = "Dataset_ID";
-    private static final String SAVED_RECYCLER_VIEW_STATUS_ID = "Status_ID";
     public static ArrayList<GameResult> results = new ArrayList<>();;
     private RecyclerView recyclerView;
 
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle savedState) {
-        super.onSaveInstanceState(savedState);
-        Parcelable listState = recyclerView.getLayoutManager().onSaveInstanceState();
-        savedState.putParcelable(SAVED_RECYCLER_VIEW_STATUS_ID, listState);
-        savedState.putParcelableArrayList(SAVED_RECYCLER_VIEW_DATASET_ID, results);
-        System.out.println("onSejvInstencStejt");
-    }
-
-    @Override
-    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-        results.add(new GameResult(savedInstanceState.getInt("miVelju"), savedInstanceState.getInt("viVelju")));
-        super.onRestoreInstanceState(savedInstanceState);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
